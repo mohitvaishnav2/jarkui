@@ -1,0 +1,32 @@
+{
+  "Burgers_(Veg & NonVeg)": [
+    {"name": "Classic Veg Burger", "price": 99},
+    {"name": "Cheese Burst Veg Burger", "price": 129},
+    {"name": "Chicken Burger", "price": 149},
+    {"name": "Spicy Chicken Burger", "price": 199}
+  ],
+  "Wraps": [
+    {"name": "Paneer Tikka Wrap", "price": 129},
+    {"name": "Chicken Wrap", "price": 299},
+    {"name": "Veg Wrap", "price": 99},
+    {"name": "Spicy Chicken Wrap", "price": 200}
+  ],
+  "Quick bites":[
+    {"name": "French Fries", "price": 59},
+    {"name": "Peri Peri Fries", "price": 79},
+    {"name": "Garlic Bread", "price": 89}
+  ],
+  "Beverages": [
+    {"name": "Cold Coffee", "price": 199},
+    {"name": "Hot Coffee", "price": 149},
+    {"name": "Chai", "price": 49},
+    {"name": "chocklate shakes", "price": 199},
+    {"name": "Fruit Juice", "price": 99},
+    {"name": "Banana shakes", "price": 149}
+  ],
+  "Desserts": [
+    {"name": "Brownie", "price": 99},
+    {"name": "Ice Cream", "price": 99},
+    {"name":"Strawberry Cheesecake","price":199}
+  ]
+}

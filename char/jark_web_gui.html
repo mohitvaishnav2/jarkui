@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JARK Café - AI Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['SF Pro Display', 'Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 font-sans">
+    <!-- Top Bar -->
+    <header class="bg-slate-800 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-6 py-6">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold tracking-tight">JARK</h1>
+                <p class="text-slate-300 text-sm mt-1">AI-Powered Café Assistant</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-4 gap-6 min-h-screen">
+        <!-- Left Panel (Menu) -->
+        <aside class="lg:col-span-1 bg-white rounded-2xl shadow-lg p-6">
+            <h2 class="text-xl font-bold text-slate-800 mb-6">Navigation</h2>
+            <nav class="space-y-2">
+                <button class="w-full text-left px-4 py-3 rounded-xl bg-blue-500 text-white font-medium transition-all duration-200 hover:bg-blue-600" onclick="setActiveMenu(this)">
+                    🏠 Home
+                </button>
+                <button class="w-full text-left px-4 py-3 rounded-xl text-slate-600 font-medium hover:bg-slate-100 transition-all duration-200" onclick="setActiveMenu(this)">
+                    📋 Orders
+                </button>
+                <button class="w-full text-left px-4 py-3 rounded-xl text-slate-600 font-medium hover:bg-slate-100 transition-all duration-200" onclick="setActiveMenu(this)">
+                    👤 Customers
+                </button>
+                <button class="w-full text-left px-4 py-3 rounded-xl text-slate-600 font-medium hover:bg-slate-100 transition-all duration-200" onclick="setActiveMenu(this)">
+                    📊 Analytics
+                </button>
+                <button class="w-full text-left px-4 py-3 rounded-xl text-slate-600 font-medium hover:bg-slate-100 transition-all duration-200" onclick="setActiveMenu(this)">
+                    ⚙️ Settings
+                </button>
+                <button class="w-full text-left px-4 py-3 rounded-xl text-slate-600 font-medium hover:bg-slate-100 transition-all duration-200" onclick="setActiveMenu(this)">
+                    ℹ️ About
+                </button>
+            </nav>
+
+            <!-- Statistics -->
+            <div class="mt-8 p-4 bg-slate-50 rounded-xl">
+                <h3 class="font-semibold text-slate-700 mb-2">Today's Stats</h3>
+                <div class="space-y-1 text-sm text-slate-600">
+                    <div>Customers: <span id="customer-count" class="font-semibold">12</span></div>
+                    <div>Orders: <span id="order-count" class="font-semibold">8</span></div>
+                    <div>Revenue: <span class="font-semibold">$156.50</span></div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Right Panel (Conversation) -->
+        <main class="lg:col-span-3 bg-white rounded-2xl shadow-lg flex flex-col">
+            <!-- Chat Header -->
+            <div class="bg-slate-100 px-6 py-4 rounded-t-2xl border-b">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-bold text-slate-800">Customer Conversation</h2>
+                    <div class="flex items-center space-x-2">
+                        <span id="status-indicator" class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+                        <span id="status-text" class="text-sm text-green-600 font-medium">Active</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div id="chat-container" class="flex-1 p-6 overflow-y-auto space-y-4 max-h-96">
+                <!-- Sample Messages -->
+                <div class="flex justify-start">
+                    <div class="bg-blue-500 text-white rounded-2xl rounded-tl-sm px-4 py-3 max-w-xs lg:max-w-md">
+                        <div class="font-semibold text-xs mb-1 opacity-90">JARK</div>
+                        <div class="text-sm">Welcome to JARK Café! How may I assist you today?</div>
+                        <div class="text-xs opacity-75 mt-1">10:30 AM</div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end">
+                    <div class="bg-slate-200 text-slate-800 rounded-2xl rounded-tr-sm px-4 py-3 max-w-xs lg:max-w-md">
+                        <div class="font-semibold text-xs mb-1 text-slate-600">Customer</div>
+                        <div class="text-sm">Hi! I'd like to see your menu please.</div>
+                        <div class="text-xs text-slate-500 mt-1">10:31 AM</div>
+                    </div>
+                </div>
+
+                <div class="flex justify-start">
+                    <div class="bg-blue-500 text-white rounded-2xl rounded-tl-sm px-4 py-3 max-w-xs lg:max-w-md">
+                        <div class="font-semibold text-xs mb-1 opacity-90">JARK</div>
+                        <div class="text-sm">Of course! We have a variety of coffee, tea, sandwiches, and pastries. What type of beverage are you in the mood for?</div>
+                        <div class="text-xs opacity-75 mt-1">10:31 AM</div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end">
+                    <div class="bg-slate-200 text-slate-800 rounded-2xl rounded-tr-sm px-4 py-3 max-w-xs lg:max-w-md">
+                        <div class="font-semibold text-xs mb-1 text-slate-600">Customer</div>
+                        <div class="text-sm">I'd love a cappuccino and maybe a croissant.</div>
+                        <div class="text-xs text-slate-500 mt-1">10:32 AM</div>
+                    </div>
+                </div>
+
+                <div class="flex justify-start">
+                    <div class="bg-blue-500 text-white rounded-2xl rounded-tl-sm px-4 py-3 max-w-xs lg:max-w-md">
+                        <div class="font-semibold text-xs mb-1 opacity-90">JARK</div>
+                        <div class="text-sm">Excellent choice! One cappuccino and a croissant. That will be $7.50. Your order will be ready in 5 minutes.</div>
+                        <div class="text-xs opacity-75 mt-1">10:32 AM</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Message Input -->
+            <div class="border-t p-4">
+                <div class="flex space-x-3">
+                    <input 
+                        type="text" 
+                        id="message-input"
+                        placeholder="Type a message..." 
+                        class="flex-1 px-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        onkeypress="handleKeyPress(event)"
+                    >
+                    <button 
+                        onclick="sendMessage()"
+                        class="px-6 py-3 bg-blue-500 text-white rounded-xl font-medium hover:bg-blue-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    >
+                        Send
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bottom Avatar Panel -->
+    <footer class="bg-slate-800 text-white mt-8">
+        <div class="max-w-7xl mx-auto p-6">
+            <div class="flex items-center justify-between">
+                <!-- Avatar -->
+                <div class="flex items-center space-x-4">
+                    <div class="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center border-4 border-blue-400 shadow-lg">
+                        <span class="text-3xl">🤖</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg">JARK Assistant</h3>
+                        <p id="avatar-status" class="text-slate-300 text-sm">Ready to serve customers</p>
+                    </div>
+                </div>
+
+                <!-- System Info -->
+                <div class="text-right">
+                    <div class="text-sm text-slate-300">
+                        <div>System Status: <span class="text-green-400 font-semibold">Online</span></div>
+                        <div>Response Time: <span class="font-semibold">0.2s</span></div>
+                        <div>Uptime: <span class="font-semibold">2h 45m</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript functionality
+        function setActiveMenu(clickedButton) {
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('nav button');
+            buttons.forEach(btn => {
+                btn.className = 'w-full text-left px-4 py-3 rounded-xl text-slate-600 font-medium hover:bg-slate-100 transition-all duration-200';
+            });
+            
+            // Add active class to clicked button
+            clickedButton.className = 'w-full text-left px-4 py-3 rounded-xl bg-blue-500 text-white font-medium transition-all duration-200 hover:bg-blue-600';
+            
+            // Update avatar status
+            const statusText = clickedButton.textContent.trim();
+            document.getElementById('avatar-status').textContent = `${statusText} section active`;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('message-input');
+            const message = input.value.trim();
+            
+            if (message) {
+                addMessage('Customer', message, getCurrentTime());
+                input.value = '';
+                
+                // Simulate JARK response
+                setTimeout(() => {
+                    const responses = [
+                        "Thank you for your message. How can I help you further?",
+                        "I understand. Let me process that for you.",
+                        "Great choice! Is there anything else you'd like to add?",
+                        "I'm here to assist you. What would you like to know?",
+                        "Perfect! I'll take care of that right away."
+                    ];
+                    const response = responses[Math.floor(Math.random() * responses.length)];
+                    addMessage('JARK', response, getCurrentTime());
+                }, 1000);
+            }
+        }
+
+        function addMessage(sender, text, timestamp) {
+            const container = document.getElementById('chat-container');
+            const isJark = sender === 'JARK';
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `flex ${isJark ? 'justify-start' : 'justify-end'}`;
+            
+            messageDiv.innerHTML = `
+                <div class="${isJark ? 'bg-blue-500 text-white rounded-2xl rounded-tl-sm' : 'bg-slate-200 text-slate-800 rounded-2xl rounded-tr-sm'} px-4 py-3 max-w-xs lg:max-w-md">
+                    <div class="font-semibold text-xs mb-1 ${isJark ? 'opacity-90' : 'text-slate-600'}">${sender}</div>
+                    <div class="text-sm">${text}</div>
+                    <div class="text-xs ${isJark ? 'opacity-75' : 'text-slate-500'} mt-1">${timestamp}</div>
+                </div>
+            `;
+            
+            container.appendChild(messageDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function getCurrentTime() {
+            return new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        }
+
+        // Simulate live updates
+        setInterval(() => {
+            const statusIndicator = document.getElementById('status-indicator');
+            statusIndicator.classList.toggle('animate-pulse');
+        }, 3000);
+
+        // Update customer count periodically
+        let customerCount = 12;
+        let orderCount = 8;
+        setInterval(() => {
+            if (Math.random() > 0.7) {
+                customerCount++;
+                document.getElementById('customer-count').textContent = customerCount;
+            }
+            if (Math.random() > 0.8) {
+                orderCount++;
+                document.getElementById('order-count').textContent = orderCount;
+            }
+        }, 10000);
+    </script>
+</body>
+</html>
